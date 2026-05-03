@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Photos27_Android">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
