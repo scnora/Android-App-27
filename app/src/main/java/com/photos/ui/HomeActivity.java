@@ -11,6 +11,7 @@ import android.app.AlertDialog;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.text.InputFilter;
+import android.content.Intent;
 
 import com.photos.R;
 import com.photos.util.StorageUtil;
@@ -55,14 +56,20 @@ public class HomeActivity extends AppCompatActivity {
             public void onAlbumClick(int position) {
                 // TODO: Implement opening albums and such.
                 // TODO: Implement opening photos as well, along with the necessary features.
-                Toast.makeText(HomeActivity.this,
-                        "Open " + albums.get(position).getName(),
-                        Toast.LENGTH_SHORT).show();
+                //Toast.makeText(HomeActivity.this,
+                // "Open " + albums.get(position).getName(),
+                        //Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(HomeActivity.this, AlbumActivity.class);
+                intent.putExtra(AlbumActivity.EXTRA_ALBUM_INDEX, position);
+                startActivity(intent);
             }
 
             @Override
             public void onAlbumLongClick(int position) {
-                showAlbumOptionsDialog(position);
+                Intent intent = new Intent(HomeActivity.this, AlbumActivity.class);
+                intent.putExtra(AlbumActivity.EXTRA_ALBUM_INDEX, position);
+                startActivity(intent);
+
             }
         });
 
