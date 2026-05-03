@@ -3,13 +3,13 @@ plugins {
 }
 
 android {
-    namespace = "com.example.photos27_android"
+    namespace = "com.photos"
     compileSdk {
         version = release(37)
     }
 
     defaultConfig {
-        applicationId = "com.example.photos27_android"
+        applicationId = "com.photos"
         minSdk = 37
         targetSdk = 37
         versionCode = 1

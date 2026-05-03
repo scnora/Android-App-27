@@ -22,6 +22,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Photos27_Android"
+rootProject.name = "Photos-Android"
 include(":app")
  

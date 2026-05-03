@@ -1,4 +1,4 @@
-package com.example.photos27_android;
+package com.photos.photos27_android;
 
 import android.content.Context;
 
