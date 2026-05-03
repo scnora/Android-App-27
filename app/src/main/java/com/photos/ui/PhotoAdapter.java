@@ -12,7 +12,6 @@ import com.photos.R;
 import com.photos.model.Photo;
 import java.io.File;
 import java.util.List;
-
 public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder>{
     public interface OnPhotoClickListener{
         void onPhotoClick(int position);
@@ -39,7 +38,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder>{
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_photo, parent, false);
         ViewHolder vh = new ViewHolder(view);
@@ -51,7 +50,9 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder>{
 
         view.setOnLongClickListener(v -> {
             int pos = vh.getAbsoluteAdapterPosition();
-            if (pos != RecyclerView.NO_POSITION) listener.onPhotoLongClick(pos);
+            if (pos != RecyclerView.NO_POSITION){
+                listener.onPhotoLongClick(pos);
+            }
             return true;
         });
 

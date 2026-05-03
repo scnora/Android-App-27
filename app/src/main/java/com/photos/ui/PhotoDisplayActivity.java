@@ -23,8 +23,7 @@ import com.photos.util.StorageUtil;
 import java.io.File;
 import java.util.ArrayList;
 
-public class PhotoDisplayActivity extends AppCompatActivity {
-
+public class PhotoDisplayActivity extends AppCompatActivity{
     public static final String EXTRA_ALBUM_INDEX = "album_index";
     public static final String EXTRA_PHOTO_INDEX = "photo_index";
 
@@ -33,12 +32,12 @@ public class PhotoDisplayActivity extends AppCompatActivity {
     private int photoIndex;
     private Album album;
 
-    private ImageView photoImageView;
-    private TextView photoNameText;
+    private ImageView imageView;
+    private TextView textView;
     private TagAdapter tagAdapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_display);
 
@@ -47,35 +46,37 @@ public class PhotoDisplayActivity extends AppCompatActivity {
         photoIndex = getIntent().getIntExtra(EXTRA_PHOTO_INDEX, 0);
         album = albums.get(albumIndex);
 
-        photoImageView = findViewById(R.id.photoImageView);
-        photoNameText = findViewById(R.id.photoNameText);
+        imageView = findViewById(R.id.photoImageView);
+        textView = findViewById(R.id.photoNameText);
 
-        // Back button
+        //back
         findViewById(R.id.backButton).setOnClickListener(v -> finish());
 
-        // Add tag button
+        //add tag
         findViewById(R.id.addTagButton).setOnClickListener(v -> showAddTagDialog());
 
-        // Slideshow buttons
+        //slideshow buttons
         findViewById(R.id.prevButton).setOnClickListener(v -> {
-            if (photoIndex > 0) {
-                photoIndex--;
+            if(photoIndex > 0){
+                photoIndex-=1;
                 displayCurrentPhoto();
-            } else {
+            }
+            else {
                 Toast.makeText(this, "First photo", Toast.LENGTH_SHORT).show();
             }
         });
 
         findViewById(R.id.nextButton).setOnClickListener(v -> {
-            if (photoIndex < album.getPhotos().size() - 1) {
+            if (photoIndex < album.getPhotos().size()-1){
                 photoIndex++;
                 displayCurrentPhoto();
-            } else {
+            }
+            else{
                 Toast.makeText(this, "Last photo", Toast.LENGTH_SHORT).show();
             }
         });
 
-        // Tags RecyclerView
+        //tag RecyclerView
         RecyclerView tagsRecyclerView = findViewById(R.id.tagsRecyclerView);
         tagsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -89,42 +90,34 @@ public class PhotoDisplayActivity extends AppCompatActivity {
     private void displayCurrentPhoto() {
         Photo photo = album.getPhotos().get(photoIndex);
         String filePath = photo.getFilePath();
-
-        // Handle both URI strings and file paths
-        try {
+        try{
             Uri uri = Uri.parse(filePath);
-            photoImageView.setImageURI(uri);
+            imageView.setImageURI(uri);
         } catch (Exception e) {
             File file = new File(filePath);
             if (file.exists()) {
-                photoImageView.setImageURI(Uri.fromFile(file));
+                imageView.setImageURI(Uri.fromFile(file));
             }
         }
-
-        // Show filename
         String name = new File(filePath).getName();
         if (name.equals(filePath)) {
-            // It's a URI, extract last segment
+
             name = Uri.parse(filePath).getLastPathSegment();
         }
-        photoNameText.setText(name);
+        textView.setText(name);
 
-        // Refresh tags list
         tagAdapter.notifyDataSetChanged();
     }
 
     private void showAddTagDialog() {
-        // Spinner for tag type
+        //spinner for tag
         Spinner typeSpinner = new Spinner(this);
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_dropdown_item,
-                new String[]{"person", "location"});
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item, new String[]{"person", "location"});
         typeSpinner.setAdapter(spinnerAdapter);
-
         EditText valueInput = new EditText(this);
         valueInput.setHint("Tag value");
 
-        // Layout to hold both
+        //layout
         android.widget.LinearLayout layout = new android.widget.LinearLayout(this);
         layout.setOrientation(android.widget.LinearLayout.VERTICAL);
         layout.setPadding(40, 20, 40, 20);
@@ -138,7 +131,7 @@ public class PhotoDisplayActivity extends AppCompatActivity {
                     String type = typeSpinner.getSelectedItem().toString();
                     String value = valueInput.getText().toString().trim();
 
-                    if (value.isEmpty()) {
+                    if(value.isEmpty()){
                         Toast.makeText(this, "Tag value cannot be empty", Toast.LENGTH_SHORT).show();
                         return;
                     }

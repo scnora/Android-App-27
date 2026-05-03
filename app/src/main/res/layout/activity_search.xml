@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#121212"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="← Back"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="Search by Tag"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+        <!-- First tag row -->
+        <Spinner
+            android:id="@+id/tagTypeSpinner1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" />
+
+        <AutoCompleteTextView
+            android:id="@+id/tagValueInput1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="#1E1E1E"
+            android:completionThreshold="1"
+            android:hint="Tag value"
+            android:padding="10dp"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#888888" />
+
+        <!-- AND / OR toggle -->
+        <RadioGroup
+            android:id="@+id/conjunctionGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioNone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Single"
+                android:textColor="#FFFFFF" />
+
+            <RadioButton
+                android:id="@+id/radioAnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="AND"
+                android:textColor="#FFFFFF" />
+
+            <RadioButton
+                android:id="@+id/radioOr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="OR"
+                android:textColor="#FFFFFF" />
+
+        </RadioGroup>
+
+        <!-- Second tag row (shown only for AND/OR) -->
+        <Spinner
+            android:id="@+id/tagTypeSpinner2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:visibility="gone" />
+
+        <AutoCompleteTextView
+            android:id="@+id/tagValueInput2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="#1E1E1E"
+            android:completionThreshold="1"
+            android:hint="Second tag value"
+            android:padding="10dp"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#888888"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/searchButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="#333333"
+            android:gravity="center"
+            android:padding="14dp"
+            android:text="Search"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/resultsCountText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textColor="#AAAAAA" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/searchResultsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

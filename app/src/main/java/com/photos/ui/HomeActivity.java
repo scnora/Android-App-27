@@ -57,7 +57,7 @@ public class HomeActivity extends AppCompatActivity {
                 // TODO: Implement opening albums and such.
                 // TODO: Implement opening photos as well, along with the necessary features.
                 //Toast.makeText(HomeActivity.this,
-                // "Open " + albums.get(position).getName(),
+                //"Open " + albums.get(position).getName(),
                         //Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(HomeActivity.this, AlbumActivity.class);
                 intent.putExtra(AlbumActivity.EXTRA_ALBUM_INDEX, position);

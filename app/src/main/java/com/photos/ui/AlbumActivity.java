@@ -42,38 +42,36 @@ public class AlbumActivity extends AppCompatActivity {
 
         TextView titleText = findViewById(R.id.albumTitleText);
         titleText.setText(album.getName());
-
-        // Back button
+        //back btn
         findViewById(R.id.backButton).setOnClickListener(v -> finish());
-
-        // Add photo button
+        //add photo btn
         findViewById(R.id.addPhotoButton).setOnClickListener(v -> openPhotoPicker());
 
-        // Setup RecyclerView
+        //recycller
         RecyclerView recyclerView = findViewById(R.id.photosRecyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
 
         photoAdapter = new PhotoAdapter(album.getPhotos(), new PhotoAdapter.OnPhotoClickListener() {
             @Override
-            public void onPhotoClick(int position) {
+            public void onPhotoClick(int position){
                 openPhotoDisplay(position);
             }
 
             @Override
-            public void onPhotoLongClick(int position) {
+            public void onPhotoLongClick(int position){
                 showPhotoOptionsDialog(position);
             }
         });
         recyclerView.setAdapter(photoAdapter);
 
-        // Photo picker launcher
+        //photo picker launcher
         pickPhotoLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                         Uri uri = result.getData().getData();
                         if (uri != null) {
-                            // Persist permission
+                            //permission
                             getContentResolver().takePersistableUriPermission(
                                     uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                             String path = uri.toString();
@@ -129,7 +127,7 @@ public class AlbumActivity extends AppCompatActivity {
     }
 
     private void showMovePhotoDialog(int position) {
-        // Build list of other albums
+        //build list of other albs
         ArrayList<String> otherNames = new ArrayList<>();
         ArrayList<Integer> otherIndices = new ArrayList<>();
 
@@ -140,16 +138,15 @@ public class AlbumActivity extends AppCompatActivity {
             }
         }
 
-        if (otherNames.isEmpty()) {
+        if (otherNames.isEmpty()){
             Toast.makeText(this, "No other albums to move to", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        String[] namesArray = otherNames.toArray(new String[0]);
-
+        String[] namesArr = otherNames.toArray(new String[0]);
         new AlertDialog.Builder(this)
                 .setTitle("Move to Album")
-                .setItems(namesArray, (dialog, which) -> {
+                .setItems(namesArr, (dialog, which) -> {
                     int targetIndex = otherIndices.get(which);
                     Photo photo = album.getPhotos().get(position);
 
@@ -171,7 +168,6 @@ public class AlbumActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // Refresh in case tags were added in PhotoDisplayActivity
         albums = StorageUtil.loadAlbums(this);
         album = albums.get(albumIndex);
         photoAdapter.notifyDataSetChanged();
