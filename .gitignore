@@ -1,5 +1,6 @@
 *.iml
 .gradle
+.idea/
 /local.properties
 /.idea/caches
 /.idea/libraries
@@ -10,7 +11,9 @@
 .DS_Store
 Thumbs.db
 /build
+app/build/
 /captures
 .externalNativeBuild
 .cxx
 local.properties
+gradle.wrapper.properties
