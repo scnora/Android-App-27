@@ -12,40 +12,146 @@
         android:layout_height="56dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="36dp"
-        android:layout_marginBottom="16dp"
         android:gravity="center"
         android:text="‹"
         android:textColor="#8FC7F5"
         android:textSize="48sp"
-        app:layout_constraintBottom_toTopOf="@+id/searchResultsRecyclerView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
-    <EditText
-        android:id="@+id/searchInput"
-        android:layout_width="0dp"
+    <Spinner
+        android:id="@+id/tagTypeSpinner"
+        android:layout_width="110dp"
         android:layout_height="48dp"
         android:layout_marginStart="72dp"
         android:layout_marginTop="12dp"
+        android:backgroundTint="#8FC7F5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/backButton"/>
+
+    <AutoCompleteTextView
+        android:id="@+id/searchInput"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/search_bar_bg"
-        android:hint="Search photos..."
+        android:hint="Tag value..."
         android:paddingStart="16dp"
         android:textColor="#FFFFFF"
+        android:textColorHint="#888888"
         android:textSize="16sp"
+        android:completionThreshold="1"
+        app:layout_constraintStart_toEndOf="@id/tagTypeSpinner"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintTop_toTopOf="@id/backButton"/>
+
+    <RadioGroup
+        android:id="@+id/conjunctionGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="72dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/backButton" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tagTypeSpinner">
+
+        <RadioButton
+            android:id="@+id/radioNone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Single"
+            android:textColor="#FFFFFF"
+            android:checked="true"/>
+
+        <RadioButton
+            android:id="@+id/radioAnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AND"
+            android:textColor="#FFFFFF"
+            android:layout_marginStart="16dp"/>
+
+        <RadioButton
+            android:id="@+id/radioOr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OR"
+            android:textColor="#FFFFFF"
+            android:layout_marginStart="16dp"/>
+
+    </RadioGroup>
+
+    <Spinner
+        android:id="@+id/tagTypeSpinner2"
+        android:layout_width="110dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#8FC7F5"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/conjunctionGroup"/>
+
+    <AutoCompleteTextView
+        android:id="@+id/searchInput2"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/search_bar_bg"
+        android:hint="Second tag value..."
+        android:paddingStart="16dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#888888"
+        android:textSize="16sp"
+        android:completionThreshold="1"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@id/tagTypeSpinner2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/conjunctionGroup"/>
+
+    <TextView
+        android:id="@+id/searchButton"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:background="#1E1E1E"
+        android:gravity="center"
+        android:text="Search"
+        android:textColor="#8FC7F5"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tagTypeSpinner2"/>
+
+    <TextView
+        android:id="@+id/resultsCountText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:textColor="#AAAAAA"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchButton"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/searchResultsRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:padding="12dp"
-        app:layout_constraintTop_toBottomOf="@id/backButton"
+        app:layout_constraintTop_toBottomOf="@id/resultsCountText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

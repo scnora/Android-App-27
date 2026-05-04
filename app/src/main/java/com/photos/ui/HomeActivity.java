@@ -237,9 +237,9 @@ public class HomeActivity extends AppCompatActivity {
                 .setTitle("Search Photos")
                 .setItems(options, (dialog, which) -> {
                     if (which == 0) {
-                        openSearchActivity("location");
+                        openSearchActivity();
                     } else if (which == 1) {
-                        openSearchActivity("person");
+                        openSearchActivity();
                     } else {
                         dialog.dismiss();
                     }
@@ -247,17 +247,14 @@ public class HomeActivity extends AppCompatActivity {
                 .show();
     }
 
-    private void openSearchActivity(String tagType) {
+    private void openSearchActivity() {
         Intent intent = new Intent(HomeActivity.this, SearchActivity.class);
-        intent.putExtra(SearchActivity.EXTRA_TAG_TYPE, tagType);
         startActivity(intent);
     }
     private void setupListeners() {
 
         addButton.setOnClickListener(v -> showAddAlbumDialog());
-
-        searchButton.setOnClickListener(v -> showSearchTypeDialog());
-
+        searchButton.setOnClickListener(v -> openSearchActivity());
         menuButton.setOnClickListener(v -> showMainMenuDialog());
     }
 }
