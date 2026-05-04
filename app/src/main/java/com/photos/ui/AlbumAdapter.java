@@ -18,12 +18,16 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
         void onAlbumClick(int position);
         void onAlbumLongClick(int position);
     }
-    private final ArrayList<Album> albums;
+    private ArrayList<Album> albums;
     private final OnAlbumClickListener listener;
 
     public AlbumAdapter(ArrayList<Album> albums, OnAlbumClickListener listener) {
         this.albums = albums;
         this.listener = listener;
+    }
+
+    public void setAlbums(ArrayList<Album> albums) {
+        this.albums = albums;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

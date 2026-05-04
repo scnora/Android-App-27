@@ -11,12 +11,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Photos27_Android">
+
+        <activity android:name=".ui.SearchActivity" />
+        <activity android:name=".ui.PhotoDisplayActivity" />
+        <activity android:name=".ui.AlbumActivity" />
+
         <activity
             android:name=".ui.HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -41,6 +41,15 @@ public class HomeActivity extends AppCompatActivity {
         setupListeners();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        albums = StorageUtil.loadAlbums(this);
+        albumAdapter.setAlbums(albums);
+        albumAdapter.notifyDataSetChanged();
+    }
+
     private void initViews() {
         addButton = findViewById(R.id.addButton);
         searchButton = findViewById(R.id.searchButton);
@@ -54,11 +63,6 @@ public class HomeActivity extends AppCompatActivity {
         albumAdapter = new AlbumAdapter(albums, new AlbumAdapter.OnAlbumClickListener() {
             @Override
             public void onAlbumClick(int position) {
-                // TODO: Implement opening albums and such.
-                // TODO: Implement opening photos as well, along with the necessary features.
-                //Toast.makeText(HomeActivity.this,
-                //"Open " + albums.get(position).getName(),
-                        //Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(HomeActivity.this, AlbumActivity.class);
                 intent.putExtra(AlbumActivity.EXTRA_ALBUM_INDEX, position);
                 startActivity(intent);
@@ -66,10 +70,7 @@ public class HomeActivity extends AppCompatActivity {
 
             @Override
             public void onAlbumLongClick(int position) {
-                Intent intent = new Intent(HomeActivity.this, AlbumActivity.class);
-                intent.putExtra(AlbumActivity.EXTRA_ALBUM_INDEX, position);
-                startActivity(intent);
-
+                showAlbumOptionsDialog(position);
             }
         });
 
@@ -228,14 +229,34 @@ public class HomeActivity extends AppCompatActivity {
                 })
                 .show();
     }
+
+    private void showSearchTypeDialog() {
+        String[] options = {"Search by Location", "Search by People", "Cancel"};
+
+        new AlertDialog.Builder(this)
+                .setTitle("Search Photos")
+                .setItems(options, (dialog, which) -> {
+                    if (which == 0) {
+                        openSearchActivity("location");
+                    } else if (which == 1) {
+                        openSearchActivity("person");
+                    } else {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+    }
+
+    private void openSearchActivity(String tagType) {
+        Intent intent = new Intent(HomeActivity.this, SearchActivity.class);
+        intent.putExtra(SearchActivity.EXTRA_TAG_TYPE, tagType);
+        startActivity(intent);
+    }
     private void setupListeners() {
 
         addButton.setOnClickListener(v -> showAddAlbumDialog());
 
-        searchButton.setOnClickListener(v -> {
-            // TODO: Search using tag-value pairs. Matches should Auto-complete.
-            // TODO: might have to use a new .xml page for this
-        });
+        searchButton.setOnClickListener(v -> showSearchTypeDialog());
 
         menuButton.setOnClickListener(v -> showMainMenuDialog());
     }
